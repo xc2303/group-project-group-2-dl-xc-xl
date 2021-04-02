@@ -9,12 +9,12 @@ from pyspark.sql import functions as F
 from pyspark.sql.types import *
 
 # Read in drivers data
-drivers = spark.read.csv('s3://columbia-gr5069-main/raw/drivers.csv', header=True, inferSchema=True)
+drivers = spark.read.csv("s3://columbia-gr5069-main/raw/drivers.csv", header=True, inferSchema=True)
 # Keep necessary columns
 drivers = drivers.select("driverId", "dob", "driverRef", "nationality").withColumnRenamed("nationality", "driver_nationality")
 
 # Read in races data
-races = spark.read.csv('s3://columbia-gr5069-main/raw/races.csv', header=True, inferSchema=True)
+races = spark.read.csv("s3://columbia-gr5069-main/raw/races.csv", header=True, inferSchema=True)
 # Keep necessary columns
 races = (
   races
@@ -25,7 +25,7 @@ races = (
 )
 
 # Read in constructors data
-constructors = spark.read.csv('s3://columbia-gr5069-main/raw/constructors.csv', header=True, inferSchema=True)
+constructors = spark.read.csv("s3://columbia-gr5069-main/raw/constructors.csv", header=True, inferSchema=True)
 # Keep necessary columns
 constructors = (
   constructors
@@ -34,7 +34,7 @@ constructors = (
 )
 
 # Read in results data
-results = spark.read.csv('s3://columbia-gr5069-main/raw/results.csv', header=True, inferSchema=True)
+results = spark.read.csv("s3://columbia-gr5069-main/raw/results.csv", header=True, inferSchema=True)
 # Keep necessary columns
 results = results.select("raceId", "driverId", "constructorId", "grid", "positionOrder")
 
@@ -53,4 +53,4 @@ combo = combo.filter((F.col("race_year") >= 1950) & (F.col("race_year") <= 2010)
 combo = combo.filter(F.col("grid") != 0)
 
 # Save data in s3
-combo.write.csv('s3://group2-gr5069/processed/q1/q1_combo_f1_data.csv', header='true', mode='overwrite')
+combo.write.csv("s3://group2-gr5069/processed/q1/q1_combo_f1_data.csv", header="true", mode="overwrite")

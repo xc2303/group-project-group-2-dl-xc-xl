@@ -49,5 +49,8 @@ combo = (
 # Restrict data to 1950 - 2010 only
 combo = combo.filter((F.col("race_year") >= 1950) & (F.col("race_year") <= 2010))
 
+# Remove grid = 0 records
+combo = combo.filter(F.col("grid") != 0)
+
 # Save data in s3
-combo.write.csv('s3://group2-gr5069/processed/q1_combo_f1_data.csv', header='true', mode='overwrite')
+combo.write.csv('s3://group2-gr5069/processed/q1/q1_combo_f1_data.csv', header='true', mode='overwrite')
